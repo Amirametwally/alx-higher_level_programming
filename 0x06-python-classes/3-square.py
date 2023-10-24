@@ -12,9 +12,11 @@ class Square:
             raise ValueError("size must be >= 0")
         else:
             self.__size = size
+
     def get_size(self):
         """function that return size"""
         return self.__size
+
     def area(self):
         """function return area"""
         return self.__size ** 2
