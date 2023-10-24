@@ -13,6 +13,8 @@ class Square:
         else:
             self.__size = size
     def get_size(self):
+        """function that return size"""
         return self.__size
     def area(self):
+        """function return area"""
         return self.__size ** 2
