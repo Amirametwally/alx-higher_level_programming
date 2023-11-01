@@ -4,64 +4,87 @@ resolves the N-Queen puzzle using backtracking
 """
 
 
-def ckeck_save(m_queen, nqueen):
-    """ determines if the queens can or can't kill each other"""
+from sys import argv
 
-    for i in range(nqueen):
-        if m_queen[i] == m_queen[nqueen]:
-            return False
-        if abs(m_queen[i] - m_queen[nqueen]) == abs(i - nqueen):
-            return False
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+
+if not argv[1].isdigit():
+    print('N must be a number')
+    exit(1)
+
+N = int(argv[1])
+
+if N < 4:
+    print('N must be at least 4')
+    exit(1)
+
+
+def board_column(board=[]):
+    """Adds a column of zeroes to the right of any board
+    """
+    if len(board):
+        for row in board:
+            row.append(0)
+    else:
+        for row in range(N):
+            board.append([0])
+    return board
+
+
+def add_queen(board, row, col):
+    """Sets "queen," or 1, to coordinates given in board."""
+    board[row][col] = 1
+
+
+def new_queen(board, row, col):
+    """checks that for a new queen placed in the rightmost column"""
+    r = row
+    c = col
+
+    for i in range(1, N):
+        if (c - i) >= 0:
+            if (r - i) >= 0:
+                if board[r - i][c - i]:
+                    return False
+            if board[r][c - i]:
+                return False
+            if (r + i) < N:
+                if board[r + i][c - i]:
+                    return False
     return True
 
 
-def print_result(m_queen, nqueen):
-    """ prints the list"""
-
-    res = []
-
-    for i in range(nqueen):
-        res.append([i, m_queen[i]])
-    print(res)
-
-
-def queen(m_queen, nqueen):
-    """ Recursive function"""
-
-    if nqueen is len(m_queen):
-        print_result(m_queen, nqueen)
-        return
-    m_queen[nqueen] = -1
-    while((m_queen[nqueen] < len(m_queen) - 1)):
-        m_queen[nqueen] += 1
-        if ckeck_save(m_queen, nqueen) is True:
-            if nqueen is not len(m_queen):
-                queen(m_queen, nqueen + 1)
+def formated_coordinatr(cand):
+    """Converts a board (matrir of 1 and 0) into a series of row/column
+    """
+    result = []
+    for r, attempt in enumerate(cand):
+        result.append([])
+        for i, row in enumerate(attempt):
+            result[r].append([])
+            for j, col in enumerate(row):
+                if col:
+                    result[r][i].append(i)
+                    result[r][i].append(j)
+    return result
 
 
-def solve_n_queen(size):
-    """ invokes the Backtracking"""
+cand = []
+cand.append(board_column())
 
-    m_queen = [-1 for i in range(size)]
+for col in range(N):
+    new_cand = []
+    for matrix in cand:
+        for row in range(N):
+            if new_queen(matrix, row, col):
+                temp = [line[:] for line in matrix]
+                add_queen(temp, row, col)
+                if col < N - 1:
+                    board_column(temp)
+                new_cand.append(temp)
+    cand = new_cand
 
-    queen(m_queen, 0)
-
-
-if __name__ == '__main__':
-
-    import sys
-
-    if len(sys.argv) == 1 or len(sys.argv) > 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
-
-    try:
-        size = int(sys.argv[1])
-    except ValueError:
-        print("N must be a number")
-        sys.exit(1)
-
-    if size < 4:
-        print("N must be at least 4")
-        sys.exit(1)
-    solve_n_queen(size)
+for element in formated_coordinatr(cand):
+    print(element)
