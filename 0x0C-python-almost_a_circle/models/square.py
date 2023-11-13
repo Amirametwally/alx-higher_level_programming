@@ -11,11 +11,6 @@ class Square(Rectangle):
         """initializes instances"""
         super().__init__(size, size, x, y, id)
 
-    def __str__(self):
-        str_one = f"[Rectangle] ({self.id}) {self.x}/{self.y}"
-        str_two = f"{self.width}/{self.height}"
-        return f"{str_one} - {str_two}"
-
     @property
     def size(self):
         """getter size"""
