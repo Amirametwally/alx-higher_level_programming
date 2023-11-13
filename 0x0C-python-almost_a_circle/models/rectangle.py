@@ -91,7 +91,7 @@ class Rectangle(Base):
 
     def update(self, *args, **kwargs):
         """updated"""
-        if args != None and len(args) != 0:
+        if args is not None and len(args) != 0:
             attributes = ["id", "width", "height", "x", "y"]
             for i in range(len(args)):
                 setattr(self, attributes[i], args[i])
