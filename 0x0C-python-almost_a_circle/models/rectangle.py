@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from .base import Base
+
 """
 This module defines the Rectangle class
 """
@@ -82,17 +83,27 @@ class Rectangle(Base):
         """Print the square with the # character."""
         print("\n" * self.y, end="")
         for _ in range(self.height):
-            print(" " * self.x + '#' * self.width)
+            print(" " * self.x + "#" * self.width)
 
     def __str__(self):
         return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
 
     def update(self, *args, **kwargs):
-        """ updated """
-        if args is not None and len(args) is not 0:
-            attributes = ['id', 'width', 'height', 'x', 'y']
+        """updated"""
+        if args != None and len(args) != 0:
+            attributes = ["id", "width", "height", "x", "y"]
             for i in range(len(args)):
                 setattr(self, attributes[i, args[i]])
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
+
+    def to_dictionary(self):
+        """ Rectangle instance to dictionary """
+        attributes = ["id", "width", "height", "x", "y"]
+        dictionary = {}
+
+        for key in attributes:
+            dictionary[key] = getattr(self, key)
+
+        return dictionary
