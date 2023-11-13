@@ -9,11 +9,11 @@ class Square(Rectangle):
 
     def __init__(self, size, x=0, y=0, id=None):
         """initializes instances"""
-        super().__init__(size, size, x, y, id)
+        super().__init__(self, size, x, y, id)
 
     def __str__(self):
-        str_one = f"[Square] ({self.id}) {self.x}/{self.y}"
-        str_two = f"{self.size}"
+        str_one = f"[Rectangle] ({self.id}) {self.x}/{self.y}"
+        str_two = f"{self.width}/{self.height}"
         return f"{str_one} - {str_two}"
 
     @property
@@ -28,8 +28,8 @@ class Square(Rectangle):
         self.height = value
 
     def __str__(self):
-        str_one = f"[Rectangle] ({self.id}) {self.x}/{self.y}"
-        str_two = f"{self.width}/{self.height}"
+        str_one = f"[Square] ({self.id}) {self.x}/{self.y}"
+        str_two = f"{self.size}"
         return f"{str_one} - {str_two}"
 
     def update(self, *args, **kwargs):
