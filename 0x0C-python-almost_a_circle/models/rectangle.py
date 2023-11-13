@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-from .base import Base
-
 """
 This module defines the Rectangle class
 """
+from .base import Base
 
 
 class Rectangle(Base):
@@ -86,14 +85,16 @@ class Rectangle(Base):
             print(" " * self.x + "#" * self.width)
 
     def __str__(self):
-        return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
+        str_one = f"[Rectangle] ({self.id}) {self.x}/{self.y}"
+        str_two = f"{self.width}/{self.height}"
+        return f"{str_one} - {str_two}"
 
     def update(self, *args, **kwargs):
         """updated"""
         if args != None and len(args) != 0:
             attributes = ["id", "width", "height", "x", "y"]
             for i in range(len(args)):
-                setattr(self, attributes[i, args[i]])
+                setattr(self, attributes[i], args[i])
         else:
             for key, value in kwargs.items():
                 setattr(self, key, value)
