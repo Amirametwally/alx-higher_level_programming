@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Python script that takes 2 arguments in order 
+Python script that takes 2 arguments in order
 to solve this challenge.
 """
 from requests import get, auth
